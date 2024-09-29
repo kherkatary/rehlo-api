@@ -1,12 +1,13 @@
 import express from 'express';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import connectDb from './src/config/db.js';
-import userRouter from './src/routes/userRoute.js';
 import cors from 'cors';
-import postRouter from './src/routes/postRoute.js';
 import cron from 'node-cron';
 import axios from 'axios';
+import connectDb from './src/config/db.js';
+import userRouter from './src/routes/userRoute.js';
+import postRouter from './src/routes/postRoute.js';
+import propertyRouter from './src/routes/propertyRoute.js';
 
 // Initialize dotenv to use environment variables
 dotenv.config();
@@ -25,7 +26,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(morgan('tiny'));
 
 // Cron job to ping the server every 15 minutes
-cron.schedule('*/15 * * * *', async () => {
+cron.schedule('*/13 * * * *', async () => {
     try {
         const response = await axios.get(serverUrl);
         console.log(`Server ping successful: Status ${response.status}`);
@@ -40,9 +41,10 @@ connectDb();
 // Define routes
 app.use('/api/v1/auth/', userRouter);
 app.use('/api/v1/post/', postRouter);
+app.use('/api/v1/property/', propertyRouter);
 
 app.get('/', (req, res) => {
-    res.send('Hello JavaScript');
+    res.send('Rehlo API');
 });
 
 // Start the server
