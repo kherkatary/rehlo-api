@@ -32,7 +32,7 @@ const requireSignInFire= async(req,res,next)=>{
     }
 
     try{
-        const decodedToken = await getAuth(firebaseAdmin).verifyIdToken(idToken)
+        const decodedToken=await getAuth(firebaseAdmin).verifyIdToken(idToken)
         req.user= decodedToken
         
         next()
