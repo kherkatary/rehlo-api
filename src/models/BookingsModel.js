@@ -5,6 +5,11 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  name:{
+    type:String,
+    required:true
+
+  },
   phone: {
     type: String,
     required: true,
@@ -14,20 +19,20 @@ const bookingSchema = new mongoose.Schema({
     ref: 'properties', 
     required: true
   },
+  paidAmount:{
+    type:Number,
+    required:true
+  },
+  roomType:{
+    type:String,
+  },
   startDate: {
     type: Date,
     required: true
   },
-  endDate: {
-    type: Date,
-    required: true,
-    validate: {
-      validator: function (v) {
-        // Ensure the endDate is after the startDate
-        return this.startDate < v;
-      },
-      message: props => `End date (${props.value}) should be after start date!`
-    }
+  totalDays:{
+    type:Number,
+    required:true
   },
   numberOfRooms: {
     type: Number,

@@ -1,14 +1,19 @@
 import { Router } from 'express';
-import {  protectedRoute,fetchProfile,editBooking,addNewBooking } from '../controllers/bookingController.js';
+import {  editBooking,addNewBooking,getMyBookings } from '../controllers/bookingController.js';
 import { requireSignInFire } from '../middlewares/auth.js';
 
 const BookingRouter = Router();
 
+//GET methodfs......................
+BookingRouter.get('/get-my-bookings',requireSignInFire ,getMyBookings);
 
-BookingRouter.post('/add-new-Booking', requireSignInFire,addNewBooking);
-BookingRouter.post('/protected', requireSignInFire, protectedRoute);
-BookingRouter.post('/Booking-details', requireSignInFire, fetchProfile);
+
+// POST methods.....................
+BookingRouter.post('/add-new-booking' ,addNewBooking);
+
+//PUT methods.......................
 BookingRouter.put('/edit-Booking', requireSignInFire, editBooking);
 
 
-export default BookRouter;
+
+export default BookingRouter;
